@@ -587,12 +587,12 @@ fn render_options(ui: &Ui) {
 }
 
 nexus::export! {
-    name: "Log Uploader",
+    name: "Donbot Log Uploader",
     signature: -69421,
     flags: AddonFlags::None,
     load,
     unload,
     provider: UpdateProvider::GitHub,
-    update_link: "https://github.com/belst/nexus-wingman-uploader",
+    update_link: "https://github.com/thignus/nexus-wingman-uploader",
     log_filter: "warn,log_uploader=debug"
 }

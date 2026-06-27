@@ -315,6 +315,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "donbot_log_uploader"
+version = "1.5.4"
+dependencies = [
+ "anyhow",
+ "base64",
+ "chrono",
+ "dirs-next",
+ "log",
+ "nexus",
+ "notify",
+ "open",
+ "revtc",
+ "serde",
+ "serde_json",
+ "ureq",
+ "ureq_multipart",
+ "windows 0.60.0",
+ "winecheck",
+]
+
+[[package]]
 name = "env_filter"
 version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -689,27 +710,6 @@ name = "log"
 version = "0.4.29"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5e5032e24019045c762d3c0f28f5b6b8bbf38563a65908389bf7978758920897"
-
-[[package]]
-name = "log_uploader"
-version = "1.5.3"
-dependencies = [
- "anyhow",
- "base64",
- "chrono",
- "dirs-next",
- "log",
- "nexus",
- "notify",
- "open",
- "revtc",
- "serde",
- "serde_json",
- "ureq",
- "ureq_multipart",
- "windows 0.60.0",
- "winecheck",
-]
 
 [[package]]
 name = "lzma-rs"
