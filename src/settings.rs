@@ -183,6 +183,16 @@ fn validate_path(path: &str) -> bool {
     path.is_dir()
 }
 
+pub fn updateDonbotToken(token: &str)
+{
+    let mut settings = SETTINGS.lock().unwrap();
+    settings.donbot_token = token.to_owned();
+    log::trace!("Storing config");
+    if let Err(e) = settings.store(config_path()) {
+        log::error!("Failed to store settings: {e}");
+    }
+}
+
 pub fn render(ui: &Ui) {
     thread_local! {
         static LOGPATH: RefCell<String> = const { RefCell::new(String::new()) };

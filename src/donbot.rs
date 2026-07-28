@@ -6,6 +6,7 @@ use std::{
 };
 
 use crate::common::WorkerMessage;
+use crate::settings;
 
 pub type DonBotJob = (usize, PathBuf, String, String, String); // index, file, base_url, bearer_token, guildid
 
@@ -39,7 +40,20 @@ fn upload(location: &PathBuf, base_url: &str, token: &str, guildid: &str) -> any
         B64.encode(guildid)
     );
 
+
+
     // 1) Create
+    log::debug!("[DonBot] Getting refreshed jwt token");
+    let create = CLIENT.with(|c| {
+        c.get(&format!("{}/auth/refresh", base_url.trim_end_matches('/')))
+            .set("Authorization", &format!("Bearer {token}"))
+            .call()
+    })?;
+    let new_token = create.into_string()?.replace(&['/', '"'][..], "");
+    settings::updateDonbotToken(&new_token);
+
+
+
     let create = CLIENT.with(|c| {
         c.post(&format!("{}/api/upload/tus", base_url.trim_end_matches('/')))
             .set("Authorization", &format!("Bearer {token}"))
