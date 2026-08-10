@@ -316,7 +316,7 @@ dependencies = [
 
 [[package]]
 name = "donbot_log_uploader"
-version = "1.5.5"
+version = "1.6.0"
 dependencies = [
  "anyhow",
  "base64",
