@@ -40,23 +40,9 @@ fn upload(location: &PathBuf, base_url: &str, token: &str, guildid: &str) -> any
         B64.encode(guildid)
     );
 
-
-
-    // 1) Create
-    log::debug!("[DonBot] Getting refreshed jwt token");
-    let create = CLIENT.with(|c| {
-        c.get(&format!("{}/auth/refresh", base_url.trim_end_matches('/')))
-            .set("Authorization", &format!("Bearer {token}"))
-            .call()
-    })?;
-    let new_token = create.into_string()?.replace(&['/', '"'][..], "");
-    settings::updateDonbotToken(&new_token);
-
-
-
     let create = CLIENT.with(|c| {
         c.post(&format!("{}/api/upload/tus", base_url.trim_end_matches('/')))
-            .set("Authorization", &format!("Bearer {token}"))
+            .set("X-GW2-API-Key", token)
             .set("Tus-Resumable", "1.0.0")
             .set("Upload-Length", &bytes.len().to_string())
             .set("Upload-Metadata", &metadata)
@@ -77,7 +63,7 @@ fn upload(location: &PathBuf, base_url: &str, token: &str, guildid: &str) -> any
     // 2) Patch (single shot — zevtc files are small)
     CLIENT.with(|c| {
         c.patch(&patch_url)
-            .set("Authorization", &format!("Bearer {token}"))
+            .set("X-GW2-API-Key", token)
             .set("Tus-Resumable", "1.0.0")
             .set("Content-Type", "application/offset+octet-stream")
             .set("Upload-Offset", "0")

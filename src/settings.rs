@@ -428,7 +428,7 @@ pub fn render(ui: &Ui) {
             // Update local input token
             *token = settings.donbot_token.clone();
         }
-        ui.input_text(e("Donbot Token"), token)
+        ui.input_text(e("Gw2 Api Key"), token)
             .read_only(!EDIT_DONBOT_TOKEN.get())
             .password(!EDIT_DONBOT_TOKEN.get())
             .build();
